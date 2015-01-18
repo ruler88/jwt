@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 
-//payload is the user JSON
+//payload is a request attribute JSON
 //secret is like SALT
 exports.encode = function(payload, secret) {
 	var algorithm = 'HS256';
@@ -11,7 +11,7 @@ exports.encode = function(payload, secret) {
 	};
 
 	//jwt look like 'header-encoded.payload-encoded.secret-signed'
-	var jwt = base64Encode(JSON.stringify(header)) + '.' + base64Encode(payload);
+	var jwt = base64Encode(JSON.stringify(header)) + '.' + base64Encode(JSON.stringify(payload));
 	jwt += '.' + sign(jwt, secret);
 
 	return jwt;

@@ -26,9 +26,19 @@ app.post('/register', function(req, res) {
 		password: user.password
 	});
 
+	var payload = {
+		iss: req.hostname,		//issuer
+		sub: newUser._id					//subject - userId
+	};
+
+	var token = jwtCoding.encode(payload, 'bigSecret');
+
 	newUser.save(function(err) {
 		console.log(newUser);
-		res.status(200).send(newUser.toJSON());
+		res.status(200).send({
+				user: newUser.toJSON(),
+				token: token
+			});
 	});
 });
 
@@ -40,8 +50,6 @@ mongoose.connect('mongodb://localhost/psjwt', function(err) {
 	}
 });
 
-console.log(jwtCoding.encode('a', 'b'));
-
-//var server = app.listen(3000, function() {
-//	console.log('server listening on ', server.address().port);
-//});
+var server = app.listen(3000, function() {
+	console.log('server listening on ', server.address().port);
+});
