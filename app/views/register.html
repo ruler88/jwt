@@ -1,7 +1,7 @@
 <section id="login">
 	<div class="container form-wrap">
 		<h1>Register Here</h1>
-		<form name="registerForm" novalidate>
+		<form ng-submit="submit()" name="registerForm" novalidate>
 			<input type="email" name="email" ng-model="email" class="form-control" placeholder="somebody@example.com">
 			<div class="help-block" ng-show="registerForm.email.$dirty && registerForm.email.$invalid">Please enter valid email.</div>
 
