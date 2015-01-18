@@ -26,7 +26,8 @@ app.post('/register', function(req, res) {
 	});
 
 	newUser.save(function(err) {
-		res.status(200).json(newUser);
+		console.log(newUser);
+		res.status(200).send(newUser.toJSON());
 	});
 });
 

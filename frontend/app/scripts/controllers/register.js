@@ -12,19 +12,19 @@ angular.module('jwtApp')
     $scope.submit = submit;
 
 		var url = 'http://localhost:3000/register';
-		var user = {
-			email: $scope.email,
-			password: $scope.password
-		};
+
 		function submit() {
+			var user = {
+				email: $scope.email,
+				password: $scope.password
+			};
 			$http.post(url, user)
 				.success(function(res) {
 					alert("info", "Woot", "good");
-					console.log("good");
+					console.log(user);
 				})
 				.error(function(err) {
 					alert("warning", "Bad", "is bad");
-					console.log("bad");
 				});
 		};
   });
