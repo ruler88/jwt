@@ -7,8 +7,11 @@ var googleAuth = require('./services/googleAuth.js');
 var createSendToken = require('./services/jwtCoding.js');
 var localStrategy = require('./services/localStrategy.js');
 var jobs = require('./services/jobs.js');
+var emailVerification = require('./services/emailVerification.js');
 
 var app = express();
+
+emailVerification.send('fake@fake.com');
 
 app.use(bodyParser.json());
 app.use(passport.initialize());
