@@ -21,7 +21,7 @@ angular.module('jwtApp')
 			$http.post(url, user)
 				.success(function(res) {
 					alert("info", "Woot", "good");
-					console.log(user);
+					authToken.setToken(res.token);
 				})
 				.error(function(err) {
 					alert("warning", "Bad", "is bad");
