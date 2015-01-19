@@ -13,7 +13,7 @@ angular.module('jwtApp')
 		var storage = $window.localStorage;
 		var cachedToken;
 
-		return {
+		var authToken = {
 			setToken: function(token) {
 				cachedToken = token;
 				storage.setItem('userToken', token);
@@ -27,7 +27,14 @@ angular.module('jwtApp')
 			},
 
 			isAuthenticated: function() {
-				return !!this.getToken();
+				return !!authToken.getToken();
+			},
+
+			removeToken: function() {
+				cachedToken = null;
+				storage.removeItem('userToken');
 			}
 		};
+
+		return authToken;
   });
