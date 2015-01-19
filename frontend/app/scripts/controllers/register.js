@@ -20,7 +20,7 @@ angular.module('jwtApp')
 			};
 			$http.post(url, user)
 				.success(function(res) {
-					alert("info", "Woot", "good");
+					alert("info", "Woot: ", "you are registered " + user.email);
 					authToken.setToken(res.token);
 				})
 				.error(function(err) {
