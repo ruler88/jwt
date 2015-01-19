@@ -4,6 +4,7 @@
 angular.module('jwtApp')
   .controller('LoginCtrl', function ($scope, $http, alert, auth) {
 		$scope.submit = submit;
+		$scope.google = google;
 
 		function submit() {
 			auth.login($scope.email, $scope.password)
@@ -14,4 +15,8 @@ angular.module('jwtApp')
 					alert("warning", "Bad:  ", err.message);
 				});
 		};
+
+		function google() {
+			auth.googleAuth();
+		}
   });
