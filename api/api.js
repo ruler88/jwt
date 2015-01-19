@@ -6,6 +6,7 @@ var jwtCoding = require('jwt-simple');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
+var moment = require('moment');
 
 var app = express();
 
@@ -84,7 +85,8 @@ app.post('/login', passport.authenticate('local-login'),
 function createSendToken(newUser, req, res) {
 	var payload = {
 		iss: req.hostname,		//issuer
-		sub: newUser.id					//subject - userId
+		sub: newUser.id,				//subject - userId
+		exp: moment().add(10, 'days').unix()		//expiration
 	};
 
 	var token = jwtCoding.encode(payload, 'bigSecret');
