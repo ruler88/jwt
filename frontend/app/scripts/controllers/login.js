@@ -17,6 +17,10 @@ angular.module('jwtApp')
 		};
 
 		function google() {
-			auth.googleAuth();
+			auth.googleAuth().then(function() {
+				alert("info", "Woot: ", "you are logged in");
+			}, function(err) {
+				alert("warning", "Bad:  ", err.message);
+			});
 		}
   });

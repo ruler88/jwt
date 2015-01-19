@@ -133,7 +133,7 @@ app.post('/auth/google', function(req, res) {
 	request.post(url, {
 		json: true,
 		form: params
-	}, function(err, res, token) {
+	}, function(err, postResponse, token) {
 		var accessToken = token.access_token;
 
 		var headers = {
@@ -144,7 +144,21 @@ app.post('/auth/google', function(req, res) {
 			url: apiUrl,
 			headers: headers,
 			json: true
-		}, function(err, res, profile) {
+		}, function(err, googResponse, profile) {
+			User.findOne({googleId: profile.sub}, function(err, foundUser) {
+				if(foundUser) {
+					return createSendToken(foundUser, req, res);
+				} else {
+					var newUser = new User();
+					newUser.googleId = profile.sub;
+					newUser.displayName = profile.name;
+					newUser.save(function(err) {
+						if(err) return next(err);
+						createSendToken(newUser, req, res);
+					});
+				}
+			});
+
 			console.log(profile);
 		});
 

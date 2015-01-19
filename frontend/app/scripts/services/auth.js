@@ -8,7 +8,7 @@
  * Service in the jwtApp.
  */
 angular.module('jwtApp')
-  .service('auth', function ($http, API_URL, authToken, $state, $window) {
+  .service('auth', function ($http, API_URL, authToken, $state, $window, $q) {
 
 		function authSuccess(res) {
 			authToken.setToken(res.token);
@@ -43,6 +43,8 @@ angular.module('jwtApp')
 			var options = "width=500, height=500, left=" + ($window.outerWidth-500)/2 +
 				", top=" + ($window.outerHeight-500)/2.5;
 
+			var deferred = $q.defer();
+
 			var popup = $window.open(url, '', options);
 			$window.focus();
 			$window.addEventListener('message', function(event) {
@@ -54,9 +56,13 @@ angular.module('jwtApp')
 						code: code,
 						redirectUri: $window.location.origin,
 						clientId: clientId
+					}).success(function(jwt) {
+						authSuccess(jwt);
+						deferred.resolve(jwt);
 					});
 				}
 			});
-		};
 
+			return deferred.promise;
+		};
   });
