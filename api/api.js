@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = require('./models/User.js');
-var jwtCoding = require('./services/jwtCoding.js');
+var jwtCoding = require('jwt-simple');
 
 var app = express();
 
