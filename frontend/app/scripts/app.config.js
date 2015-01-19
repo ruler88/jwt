@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $httpProvider) {
+angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $httpProvider, $authProvider, API_URL) {
 	$stateProvider
 
 	.state('main', {
@@ -34,6 +34,11 @@ angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $ht
 	$urlRouterProvider.otherwise('/');
 
 	$httpProvider.interceptors.push('authInterceptor');
+
+	$authProvider.google({
+		clientId: '892597316999-9m2ppfqrfarh1unmcq68d0i0isjmn58r.apps.googleusercontent.com',
+		url: API_URL + 'auth/google'
+	});
 })
 
 .constant('API_URL', 'http://localhost:3030/')
