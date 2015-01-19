@@ -28,7 +28,7 @@ app.post('/register', function(req, res) {
 
 	var payload = {
 		iss: req.hostname,		//issuer
-		sub: newUser._id					//subject - userId
+		sub: newUser.id					//subject - userId
 	};
 
 	var token = jwtCoding.encode(payload, 'bigSecret');
