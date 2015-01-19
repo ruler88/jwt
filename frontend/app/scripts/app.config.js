@@ -42,6 +42,11 @@ angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $ht
 		clientId: '892597316999-9m2ppfqrfarh1unmcq68d0i0isjmn58r.apps.googleusercontent.com',
 		url: API_URL + 'auth/google'
 	});
+
+	$authProvider.facebook({
+		clientId: '1542336276048621',
+		url: API_URL + 'auth/facebook'
+	});
 })
 
 .constant('API_URL', 'http://localhost:3030/')
