@@ -35,6 +35,9 @@ angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $ht
 
 	$httpProvider.interceptors.push('authInterceptor');
 
+	$authProvider.loginUrl = API_URL + 'login';
+	$authProvider.signupUrl = API_URL + 'register';
+
 	$authProvider.google({
 		clientId: '892597316999-9m2ppfqrfarh1unmcq68d0i0isjmn58r.apps.googleusercontent.com',
 		url: API_URL + 'auth/google'

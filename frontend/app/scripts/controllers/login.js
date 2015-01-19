@@ -7,13 +7,14 @@ angular.module('jwtApp')
 		$scope.authenticate = authenticate;
 
 		function submit() {
-			auth.login($scope.email, $scope.password)
-				.success(function(res) {
-					alert("info", "Woot: ", "you are logged in");
-				})
-				.error(function(err) {
-					alert("warning", "Bad:  ", err.message);
-				});
+			$auth.login({
+				email: $scope.email,
+				password: $scope.password
+			}).then(function(res) {
+				alert("info", "Woot: ", "you are logged in");
+			}, function(err) {
+				alert("warning", "Bad:  ", err.message)
+			});
 		};
 
 		function authenticate(provider) {

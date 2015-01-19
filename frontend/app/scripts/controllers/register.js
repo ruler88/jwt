@@ -8,15 +8,18 @@
  * Controller of the jwtApp
  */
 angular.module('jwtApp')
-  .controller('RegisterCtrl', function ($scope, alert, auth) {
+  .controller('RegisterCtrl', function ($scope, alert, $auth) {
     $scope.submit = submit;
 
 		function submit() {
-			auth.register($scope.email, $scope.password)
-				.success(function(res) {
+			$auth.signup({
+				email: $scope.email,
+				password: $scope.password
+			})
+				.then(function(res) {
 					alert("info", "Woot: ", "you are registered");
 				})
-				.error(function(err) {
+				.catch(function(err) {
 					alert("warning", "Bad", "is bad");
 				});
 		};
