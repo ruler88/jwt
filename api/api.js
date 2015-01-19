@@ -21,11 +21,40 @@ app.post('/register', function(req, res) {
 
 	var user = req.body;
 
-	var newUser = new User.model({
+	var newUser = new User({
 		email: user.email,
 		password: user.password
 	});
 
+	newUser.save(function(err) {
+		console.log(newUser);
+		createSendToken(newUser, req, res);
+	});
+
+});
+
+app.post('/login', function(req, res) {
+	var reqUser = req.body;
+
+	User.findOne({email: reqUser.email}, function(err, user) {
+		if(err) throw err;
+
+		if(!user) {
+			return res.status(401).send({message: "Wrong login"});
+		}
+
+		user.comparePasswords(req.user.password, function(err, isMatch) {
+			if(err) throw err;
+			if(!isMatch) {
+				return res.status(401).send({message: "Wrong login"});
+			}
+
+			createSendToken(user, req, res);
+		});
+	});
+});
+
+function createSendToken(newUser, req, res) {
 	var payload = {
 		iss: req.hostname,		//issuer
 		sub: newUser.id					//subject - userId
@@ -33,14 +62,11 @@ app.post('/register', function(req, res) {
 
 	var token = jwtCoding.encode(payload, 'bigSecret');
 
-	newUser.save(function(err) {
-		console.log(newUser);
-		res.status(200).send({
-				user: newUser.toJSON(),
-				token: token
-			});
+	res.status(200).send({
+		user: newUser.toJSON(),
+		token: token
 	});
-});
+}
 
 var jobs = [
 	'YOLO',
