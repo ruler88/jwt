@@ -8,10 +8,10 @@
  * Controller of the jwtApp
  */
 angular.module('jwtApp')
-  .controller('RegisterCtrl', function ($scope, $http, alert, authToken) {
+  .controller('RegisterCtrl', function ($scope, $http, alert, authToken, API_URL) {
     $scope.submit = submit;
 
-		var url = 'http://localhost:3000/register';
+		var url = API_URL + 'register';
 
 		function submit() {
 			var user = {

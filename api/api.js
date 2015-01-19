@@ -43,7 +43,7 @@ app.post('/login', function(req, res) {
 			return res.status(401).send({message: "Wrong login"});
 		}
 
-		user.comparePasswords(req.user.password, function(err, isMatch) {
+		user.comparePasswords(reqUser.password, function(err, isMatch) {
 			if(err) throw err;
 			if(!isMatch) {
 				return res.status(401).send({message: "Wrong login"});
