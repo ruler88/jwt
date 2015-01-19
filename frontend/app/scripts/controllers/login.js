@@ -2,20 +2,13 @@
 
 
 angular.module('jwtApp')
-  .controller('LoginCtrl', function ($scope, $http, alert, authToken, API_URL) {
-		var url = API_URL + 'login';
-
+  .controller('LoginCtrl', function ($scope, $http, alert, auth) {
 		$scope.submit = submit;
 
 		function submit() {
-			var user = {
-				email: $scope.email,
-				password: $scope.password
-			};
-			$http.post(url, user)
+			auth.login($scope.email, $scope.password)
 				.success(function(res) {
-					alert("info", "Woot: ", "you are logged in " + user.email);
-					authToken.setToken(res.token);
+					alert("info", "Woot: ", "you are logged in");
 				})
 				.error(function(err) {
 					alert("warning", "Bad:  ", err.message);

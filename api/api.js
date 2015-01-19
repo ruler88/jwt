@@ -99,6 +99,6 @@ mongoose.connect('mongodb://localhost/psjwt', function(err) {
 	}
 });
 
-var server = app.listen(3000, function() {
+var server = app.listen(3030, function() {
 	console.log('server listening on ', server.address().port);
 });
