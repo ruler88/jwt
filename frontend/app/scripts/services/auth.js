@@ -31,9 +31,10 @@ angular.module('jwtApp')
 				}).success(authSuccess);
 		};
 
+		var clientId = '892597316999-9m2ppfqrfarh1unmcq68d0i0isjmn58r.apps.googleusercontent.com';
 		var authParams = [];
 		authParams.push('response_type=code');
-		authParams.push('client_id=892597316999-9m2ppfqrfarh1unmcq68d0i0isjmn58r.apps.googleusercontent.com');
+		authParams.push('client_id=' + clientId);
 		authParams.push('redirect_uri=' + $window.location.origin);
 		authParams.push('scope=profile email');
 
@@ -46,8 +47,14 @@ angular.module('jwtApp')
 			$window.focus();
 			$window.addEventListener('message', function(event) {
 				if(event.origin === $window.location.origin) {
-					console.log('event message=' + event.data);
+					var code = event.data;
 					popup.close();
+
+					$http.post(API_URL + 'auth/google', {
+						code: code,
+						redirectUri: $window.location.origin,
+						clientId: clientId
+					});
 				}
 			});
 		};
