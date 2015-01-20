@@ -35,8 +35,8 @@ angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $ht
 
 	$httpProvider.interceptors.push('authInterceptor');
 
-	$authProvider.loginUrl = API_URL + 'login';
-	$authProvider.signupUrl = API_URL + 'register';
+	$authProvider.loginUrl = API_URL + 'auth/login';
+	$authProvider.signupUrl = API_URL + 'auth/register';
 
 	$authProvider.google({
 		clientId: '892597316999-9m2ppfqrfarh1unmcq68d0i0isjmn58r.apps.googleusercontent.com',
@@ -49,7 +49,7 @@ angular.module('jwtApp').config(function($urlRouterProvider, $stateProvider, $ht
 	});
 })
 
-.constant('API_URL', 'http://localhost:3030/')
+.constant('API_URL', 'http://localhost:1337/')
 
 .run(function($window) {
 		var params = $window.location.search.substring(1);	//get token from google auth
