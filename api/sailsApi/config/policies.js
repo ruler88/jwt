@@ -19,6 +19,9 @@
 
 module.exports.policies = {
 
+	'JobsController': {
+		'find': ['jwtAuth']
+	}
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
