@@ -11,8 +11,6 @@ var emailVerification = require('./services/emailVerification.js');
 
 var app = express();
 
-emailVerification.send('fake@fake.com');
-
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
@@ -33,6 +31,7 @@ passport.use('local-register', localStrategy.registerStrategy);
 
 app.post('/register', passport.authenticate('local-register'),
 	function(req, res) {
+		emailVerification.send('helloworld0424@gmail.com');
 		createSendToken(req.user, req, res);
 	});
 

@@ -3,7 +3,6 @@ var jwtCoding = require('jwt-simple');
 var _ = require('underscore');
 var fs = require('fs');
 var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
 
 exports.send = function(email) {
 	var payload = {
@@ -12,9 +11,29 @@ exports.send = function(email) {
 
 	var token = jwtCoding.encode(payload, config.EMAIL_SECRET);
 
-	var transporter = nodemailer.createTransport(smtpTransport({
+	var transporter = nodemailer.createTransport({
+		service: 'Gmail',
+		auth: {
+			user: 'helloworld0424@gmail.com',
+			pass: config.GMAIL_PASS
+		}
+	});
 
-	}));
+	var mailOptions = {
+		from: 'Hello World',
+		to: email,
+		subject: 'psJWT account verification',
+		html: getHtml(model)
+	};
+
+	transporter.sendMail(mailOptions, function(err, info) {
+		if(err) {
+			console.log('email send failed: ' + err);
+		} else {
+			console.log('email send success: ' + info);
+		}
+	});
+
 };
 
 _.templateSettings = {
