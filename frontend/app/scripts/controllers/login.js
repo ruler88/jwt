@@ -11,7 +11,11 @@ angular.module('jwtApp')
 				email: $scope.email,
 				password: $scope.password
 			}).then(function(res) {
-				alert("info", "Woot: ", "you are logged in");
+				if(res.data.user.active) {
+					alert("info", "Woot: ", "you are logged in, active");
+				} else {
+					alert("info", "Woot: ", "you are logged in, inactive");
+				}
 			}, function(err) {
 				alert("warning", "Bad:  ", err.message)
 			});

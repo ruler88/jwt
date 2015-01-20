@@ -31,7 +31,7 @@ passport.use('local-register', localStrategy.registerStrategy);
 
 app.post('/register', passport.authenticate('local-register'),
 	function(req, res) {
-		emailVerification.send('helloworld0424@gmail.com');
+		emailVerification.send(req.user.email);
 		createSendToken(req.user, req, res);
 	});
 
@@ -45,6 +45,8 @@ app.post('/auth/facebook', facebookAuth);
 app.get('/jobs', jobs);
 
 app.post('/auth/google', googleAuth);
+
+app.get('/auth/verifyEmail', emailVerification.handler);
 
 mongoose.connect('mongodb://localhost/psjwt', function(err) {
 	if(err) {
